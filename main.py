@@ -1,6 +1,6 @@
 from random import randrange, choice
-import array
-  
+import win32clipboard
+
 def vypis_znaky():
   znaky = ":><?@#$%^&*()_+-=[]{}|;':\",./<>\\"
   neco3 = choice(znaky)
@@ -12,26 +12,45 @@ def pismeno_a_cislo():
   return neco
   
 def kombinace(E=int):
-  znaky1 = int(input("Kolik netypických znaků, chceš použít v hesle?: "))
-  
-  znaky = [znaky1]
-  for x in range(znaky1):
-    if x == 0:
-      znak = vypis_znaky()
-      znaky.append(znak)
-    #else:
-      #for w in range(znaky.count):
-        
+  print("The special characters are as follows:     ><?@#$%^&*:()_+-=[]{}|;':/\",.<>")
+  A2 = int(input("How many special characters do you want to use in your password?: "))
+  print()
+  retezec3 = []
+  znaky2 = []
+  for x in range(A2):
+      znak1 = vypis_znaky()
+      znaky2.append(znak1)
 
-  for y in range(E):
-    nahoda = randrange(1, E)
-    if y == 0:
-      retezec = pismeno_a_cislo()
-    else:
-      retezec = retezec[:nahoda] + pismeno_a_cislo() + retezec[nahoda:]
-  print(retezec)
+  for w in range(E):
+      string1 = pismeno_a_cislo()
+      retezec3.append(string1)
+
+  for y in range(A2):
+      retezec3.pop()
+
+  pocitadlo1 = 0
+  for z in range(A2):
+      B1 = randrange(1, E+1)
+      B1 = B1-1
+      zn1 = znaky2[pocitadlo1]
+      retezec3.insert(B1, zn1)
+      pocitadlo1 = pocitadlo1+1
+  retezec4 = ""
+  rete1 = retezec4.join(retezec3)
+  print(rete1)
+  return rete1
 
 
 
-D = int(input("Jak dlouhé chceš mít heslo? Už vestavěná délka hesla je 9 znaků!: "))
-kombinace(D)
+
+
+
+D = int(input("How long do you want your password to be?: "))
+heslo5 = kombinace(D)
+print()
+win32clipboard.OpenClipboard()
+win32clipboard.EmptyClipboard()
+win32clipboard.SetClipboardText(heslo5)
+win32clipboard.CloseClipboard()
+print("Your password has been copied into windows clipboard, use it with Ctrl+v key combination", end="\n\n")
+enter = input("--> Press enter to exit <--")
